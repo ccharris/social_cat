@@ -14,6 +14,9 @@
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#" th:href="@{/home}">Home</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="active"><a href="#" th:href="@{/profile}">My Profile</a></li>
+				</ul>
 				<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
 					<li><a href="#" onclick="$('#logoutForm').submit();">Logout</a></li>
 				</ul>

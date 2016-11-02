@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/basic">
+<head>
+<title>Social Cat Profile</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<img id="avatar" src="" th:if="${userImage}" th:src="${userImage.htmlSrc}" alt="Profile Image" title="Profile Image"/>
+	<div class="row">
+		<h1>MY PROFILE</h1>
+		<div th:if="${user}">
+			<div class="list-group row col-md-6" th:object="${user}">
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">First Name</h4>
+					<p class="list-group-item-text" th:text="*{firstName}"></p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">Last Name</h4>
+					<p class="list-group-item-text" th:text="*{lastName}"></p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">Email Address</h4>
+					<p class="list-group-item-text" th:text="*{email}"></p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">Phone Number</h4>
+					<p class="list-group-item-text" th:text="*{phoneNumber}"></p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">Id Number</h4>
+					<p class="list-group-item-text" th:text="*{id}"></p>
+				</div>
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">Active</h4>
+					<p class="list-group-item-text" th:text="*{active}"></p>
+				</div>
+				<div th:if="*{! #strings.isEmpty(twitterHandle)}" class="list-group-item">
+				<h4 class="list-group-item-heading">Twitter</h4>
+				<p th:if="*{! #strings.isEmpty(twitterHandle)}">
+					<a target="_blank"
+						th:href="@{|https://twitter.com/*{twitterHandle}|}"
+						th:text="*{twitterHandle}"></a>
+				</p>
+				</div>
+				<div th:if="*{! #strings.isEmpty(facebookUrl)}" class="list-group-item">
+				<h4 class="list-group-item-heading">Facebook</h4>
+				<p th:if="*{! #strings.isEmpty(facebookUrl)}">
+					<a target="_blank" th:href="@{|*{facebookUrl}|}"
+						th:text="*{facebookUrl}"></a>
+				</p>
+				</div>
+				<p class="list-group-item">
+					<a href="/" th:href="@{|/profile/edit|}">Edit</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div th:unless="${user}">
+		<h3>No user found.</h3>
+	</div>
+	<div class="row">
+		<a class="col-md-4" href="/home">Back</a>
+	</div>
+</body>
+</html>

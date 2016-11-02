@@ -296,5 +296,73 @@ public class MainController {
 		}
 
 	}
+	
+	@GetMapping("/profile")
+	public String profile(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		model.addAttribute("user", v);
+		UserImage i = userImgRepo.findByUserId(v.getId());
+		model.addAttribute("userImage", i);
+		return "profile";
+	}
+
+	@GetMapping("/profile/edit")
+	public String profileEdit(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		model.addAttribute("id", v.getId());
+		model.addAttribute("user", v);
+		return "profile_edit";
+	}
+
+	@PostMapping("/profile/edit")
+	public String profileEditSave( @ModelAttribute @Valid User user,
+			BindingResult result, Model model, @RequestParam("file") MultipartFile file,
+			@RequestParam(name = "removeImage", defaultValue = "false", required = false) boolean removeImage) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		long id = v.getId();
+
+		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			return "profile_edit";
+		} else {
+			if(removeImage){
+				//see if user has an img
+				UserImage image = userImgRepo.findByUserId(user.getId());
+				if(image != null){
+					userImgRepo.delete(image);
+					log.info("Image Removed " + id);
+				}
+				//remove if it exists
+			}
+
+			else if (file != null && !file.isEmpty()) {
+				try {
+					UserImage image = userImgRepo.findByUserId(user.getId());
+
+					if (image == null) {
+						image = new UserImage();
+						image.setUserId(user.getId());
+					}
+
+					image.setContentType(file.getContentType());
+					image.setImage(file.getBytes());
+					userImgRepo.save(image);
+
+				} catch (IOException e) {
+					log.error("Failed to uplaod file.", e);
+				}
+			}
+			userRepo.save(user);
+			return "redirect:/profile";
+		}
+
+	}
 
 }
