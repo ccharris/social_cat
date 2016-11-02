@@ -23,6 +23,7 @@
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
+				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -42,6 +43,7 @@
 						th:text="*{facebookUrl}"></a>
 				</td>
 				<td th:text="${c.active}"></td>
+				<td><a class="btn btn-success" href="/" th:href="@{|/email/contact/${c.id}|}" role="button">Email</a></td>
 				<td><a class="btn btn-default" href="/" th:href="@{|/contact/${c.id}}" role="button">View</a> </td>
 				<td><a class="btn btn-primary" href="/" th:href="@{|/contact/${c.id}/edit|}" role="button">Edit</a></td>
 				<td><a class="btn btn-success" href="/" th:href="@{|/contact/${c.id}/delete|}" role="button">Delete</a></td>

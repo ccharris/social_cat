@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.harris.carolyn.lab302.beans.Email;
+import com.harris.carolyn.lab302.beans.EmailService;
 import com.harris.carolyn.lab302.beans.User;
 import com.harris.carolyn.lab302.beans.UserImage;
 import com.harris.carolyn.lab302.beans.UserRole;
@@ -363,6 +365,41 @@ public class MainController {
 			return "redirect:/profile";
 		}
 
+	}
+	
+	
+	
+	@GetMapping("/email")
+	public String email(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		model.addAttribute("user", v);
+		Email e = new Email();
+		model.addAttribute("email", e);
+		return "send_mail";
+	}
+
+	@PostMapping("/email")
+	public String emailSend(@ModelAttribute @Valid Email email, BindingResult result, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		email.setMessage((email.getMessage() + " Sign up for Social Cat! http://socialcat.com"));
+		EmailService es = new EmailService();
+		es.sendEmail(email, v);
+		boolean isAdmin = false;
+		boolean isUser = false;
+		for (UserRole ur : v.getUserRoles()){
+			if (ur.getRole().equals("USER")){
+				isUser = true;
+			} else if (ur.getRole().equals("ADMIN")){
+				isAdmin = true;
+			}
+		}
+		model.addAttribute("isUser", isUser);
+		model.addAttribute("isAdmin", isAdmin);
+		return "email_success";
 	}
 
 }

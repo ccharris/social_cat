@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.harris.carolyn.lab302.beans.Contact;
+import com.harris.carolyn.lab302.beans.Email;
+import com.harris.carolyn.lab302.beans.EmailService;
 import com.harris.carolyn.lab302.beans.User;
 import com.harris.carolyn.lab302.beans.UserRole;
 import com.harris.carolyn.lab302.repository.ContactRepository;
@@ -152,6 +154,45 @@ public class ContactController {
 		contactRepo.delete(contact);
 		return "redirect:/contacts";
 
+	}
+	
+	@GetMapping("/email/contact/{id}")
+	public String email(Model model, @PathVariable(name = "id") long id) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		Contact u = contactRepo.findOne(id);
+		String emailAdd = u.getEmail();
+		model.addAttribute("emailAdd", emailAdd);
+		boolean isAddress = true;
+		model.addAttribute("isAddress", isAddress);
+		model.addAttribute("user", v);
+		Email e = new Email();
+		model.addAttribute("email", e);
+		return "send_mail";
+	}
+
+	@PostMapping("/email/contact/{id}")
+	public String emailSend(@ModelAttribute @Valid Email email, @PathVariable(name = "id") long id, BindingResult result, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		String emailAdd = contactRepo.findOne(id).getEmail();
+		email.setAddress(emailAdd);
+		EmailService es = new EmailService();
+		es.sendEmail(email, v);
+		boolean isAdmin = false;
+		boolean isUser = false;
+		for (UserRole ur : v.getUserRoles()){
+			if (ur.getRole().equals("USER")){
+				isUser = true;
+			} else if (ur.getRole().equals("ADMIN")){
+				isAdmin = true;
+			}
+		}
+		model.addAttribute("isUser", isUser);
+		model.addAttribute("isAdmin", isAdmin);
+		return "email_success";
 	}
 
 	@GetMapping("/contact/create")
