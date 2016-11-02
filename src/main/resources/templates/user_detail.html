@@ -36,7 +36,7 @@
 					<h4 class="list-group-item-heading">Active</h4>
 					<p class="list-group-item-text" th:text="*{active}"></p>
 				</div>
-				<div class="list-group-item">
+				<div th:if="*{! #strings.isEmpty(twitterHandle)}" class="list-group-item">
 				<h4 class="list-group-item-heading">Twitter</h4>
 				<p th:if="*{! #strings.isEmpty(twitterHandle)}">
 					<a target="_blank"
@@ -44,7 +44,7 @@
 						th:text="*{twitterHandle}"></a>
 				</p>
 				</div>
-				<div class="list-group-item">
+				<div th:if="*{! #strings.isEmpty(facebookUrl)}" class="list-group-item">
 				<h4 class="list-group-item-heading">Facebook</h4>
 				<p th:if="*{! #strings.isEmpty(facebookUrl)}">
 					<a target="_blank" th:href="@{|*{facebookUrl}|}"

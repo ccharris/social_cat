@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layouts/basic">
 <head>
-<title>Yarn Barn Inventory Product Management</title>
+<title>Social Cat</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body layout:fragment="content">
@@ -42,6 +42,18 @@
 					name="password" class="form-control" placeholder="1"
 					th:field="*{password}" /> <span
 					th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Password Error</span>
+			</div>
+			<div class="form-group">
+				<label for="twitterHandle">Twitter Handle</label> <input type="text"
+					name="twitterHandle" class="form-control" placeholder=""
+					th:field="*{twitterHandle}" /> <span
+					th:if="${#fields.hasErrors('twitterHandle')}" th:errors="*{twitterHandle}">Twitter Handle Error</span>
+			</div>
+			<div class="form-group">
+				<label for="facebookUrl">Facebook URL</label> <input type="text"
+					name="facebookUrl" class="form-control" placeholder=""
+					th:field="*{facebookUrl}" /> <span
+					th:if="${#fields.hasErrors('facebookUrl')}" th:errors="*{facebookUrl}">Facebook Error</span>
 			</div>
 			 <div class="form-group">
 		    	<label for="active">Active:  </label>

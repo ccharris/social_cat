@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/basic">
+<head>
+<title>Social Cat Management</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<h1>Delete Contact</h1>
+	<div th:if="${isUser} == true" class="row col-md-6">
+		<form method="POST" th:object="${contact}">
+			<div th:if="${contact}">
+				<div th:object="${contact}">
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">ID</h4>
+						<p class="list-group-item-text" th:text="*{id}"></p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">First Name</h4>
+						<p class="list-group-item-text" th:text="*{firstName}"></p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Last Name</h4>
+						<p class="list-group-item-text" th:text="*{lastName}"></p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Email Address</h4>
+						<p class="list-group-item-text" th:text="*{email}"></p>
+					</div>
+					<div class="list-group-item">
+						<h4 class="list-group-item-heading">Phone Number</h4>
+						<p class="list-group-item-text" th:text="*{phoneNumber}"></p>
+					</div>
+				</div>
+			</div>
+			<div th:unless="${contact}">
+				<h3>No contact found.</h3>
+			</div>
+			<button type="submit" class="btn btn-default">Delete</button>
+		</form>
+		<div class="row">
+			<a class="col-md-4" href="/contacts">Back</a>
+		</div>
+	</div>
+	<div th:unless="${isUser} == true"><p>Insufficient Permission.</p></div>
+	
+
+</body>
+</html>

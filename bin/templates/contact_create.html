@@ -3,14 +3,15 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorator="layouts/basic">
 <head>
-<title>Social Cat</title>
+<title>Social Cat Contact Create</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body layout:fragment="content">
-	<h1>Create New User</h1>
-	<div th:if="${isAdmin} == true" class="row col-md-6">
-		<form method="POST" th:object="${user}">
+	<h1>Create New Contact</h1>
+	<div th:if="${isUser} == true" class="row col-md-6">
+		<form method="POST" th:object="${contact}">
 			<input type="hidden" name="id" th:value="*{id}" />
+			<input name="userId" type="hidden" th:value="${userId}"/>
 			<div class="form-group">
 				<label for="firstName">First Name</label> <input type="text"
 					name="firstName" class="form-control" placeholder="First Name"
@@ -38,12 +39,6 @@
 					th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">Phone Number Error</span>
 			</div>
 			<div class="form-group">
-				<label for="password">Password</label> <input type="password"
-					name="password" class="form-control" placeholder="1"
-					th:field="*{password}" /> <span
-					th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Password Error</span>
-			</div>
-			<div class="form-group">
 				<label for="twitterHandle">Twitter Handle</label> <input type="text"
 					name="twitterHandle" class="form-control" placeholder=""
 					th:field="*{twitterHandle}" /> <span
@@ -65,13 +60,10 @@
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
 			<div class="row">
-			<a class="col-md-4" href="/users">Back</a>
+			<a class="col-md-4" href="/contacts">Back</a>
 		</div>
 	</div>
-	<div th:unless="${isAdmin} == true">
-	<h3>Invalid Permission</h3>
-	</div>
-
-
+	<div th:unless="${isUser} == true">
+	<p>Insufficient Permission.</p></div>
 </body>
 </html>

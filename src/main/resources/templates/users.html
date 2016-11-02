@@ -9,7 +9,7 @@
 <body layout:fragment="content">
 	<h1>Social Cat User List:</h1>
 	<a  th:if="${isAdmin} == true" class="btn btn-success" href="/" th:href="@{|/user/create|}" role="button">Create New User</a>
-	<table class="table table-hover">
+	<table th:if="${isAdmin} == true" class="table table-hover">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -18,6 +18,8 @@
 				<th>Email</th>
 				<th>Phone Number</th>
 				<th>Active</th>
+				<th th:if="*{! #strings.isEmpty(twitterHandle)}">Twitter</th>
+				<th th:if="*{! #strings.isEmpty(facebookUrl)}">Facebook</th>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
 				<th>&nbsp;</th>
@@ -30,6 +32,15 @@
 				<td th:text="${u.lastName}"></td>
 				<td th:text="${u.email}"></td>
 				<td th:text="${u.phoneNumber}"></td>
+				<td th:if="*{! #strings.isEmpty(twitterHandle)}">
+					<a target="_blank"
+						th:href="@{|https://twitter.com/*{twitterHandle}|}"
+						th:text="*{twitterHandle}"></a>
+				</td>
+				<td th:if="*{! #strings.isEmpty(facebookUrl)}">
+					<a target="_blank" th:href="@{|*{facebookUrl}|}"
+						th:text="*{facebookUrl}"></a>
+				</td>
 				<td th:text="${u.active}"></td>
 				<td><a class="btn btn-default" href="/" th:href="@{|/user/${u.id}}" role="button">View</a> </td>
 				<td><a th:if="${isAdmin} == true" class="btn btn-primary" href="/" th:href="@{|/user/${u.id}/edit|}" role="button">Edit</a></td>
@@ -37,5 +48,6 @@
 			</tr>
 		</tbody>
 	</table>
+	<p th:unless="${isAdmin} == true">Insufficient Permission.</p>
 </body>
 </html>

@@ -6,6 +6,8 @@
 </head>
 <body layout:fragment="content">
  	<h1>Welcome to Social Cat</h1>
- 	<h4><a href="/users">Go to User Home</a></h4>
+ 	<h4>
+ 	<a class="btn btn-primary" th:if="${isAdmin} == true" href="/users" role="button">Go to User Home</a></h4>
+ 	<h4><a class="btn btn-primary" th:if="${isUser} == true" href="/contacts" role="button">Go to Contact Home</a></h4>
 </body>
 </html>

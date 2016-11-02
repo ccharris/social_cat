@@ -10,53 +10,55 @@
 		<form th:action="@{|/user/${user.id}/edit|}" enctype="multipart/form-data" method="POST">
 		<input name="id" type="hidden" th:value="${user.id}"/>
 			
-		<div class="field">
+		<div class="form-group">
 			<label for="firstName">First Name</label>
-			<input name="firstName" type="text" th:value="${user.firstName}"/>
+			<input name="firstName" class="form-control" type="text" th:value="${user.firstName}"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 			<label for="lastName">Last Name</label>
-			<input name="lastName" type="text" th:value="${user.lastName}"/>
+			<input name="lastName" class="form-control" type="text" th:value="${user.lastName}"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 			<label for="email">Email</label>
-			<input name="email" type="text" th:value="${user.email}"/>
+			<input name="email" class="form-control" type="text" th:value="${user.email}"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 			<label for="password">Password</label>
-			<input name="password" type="password" th:value="${user.password}"/>
+			<input name="password" class="form-control" type="password" th:value="${user.password}"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 			<label for="phoneNumber">Phone Number</label>
-			<input name="phoneNumber" type="text" th:value="${user.phoneNumber}"/>
+			<input name="phoneNumber" class="form-control" type="text" th:value="${user.phoneNumber}"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 		  <label for="twitterHandle">Twitter Handle</label>
-		  <input name="twitterHandle" type="text" th:value="${user.twitterHandle}"/>
+		  <input name="twitterHandle" class="form-control" type="text" th:value="${user.twitterHandle}"/>
 		</div>
 		
-        <div class="field">
+        <div class="form-group">
           <label for="facebookUrl">Facebook URL</label>
-          <input name="facebookUrl" type="text" th:value="${user.facebookUrl}"/>
+          <input name="facebookUrl" class="form-control" type="text" th:value="${user.facebookUrl}"/>
         </div>
         
-		<div class="field">
+		<div class="form-group">
 			<label for="file">Image</label>
-			<input name="file" type="file"/>
+			<input name="file"  type="file"/>
 		</div>
 		
-		<div class="field">
+		<div class="form-group">
 			<label for="removeImage">Remove Image?</label>
-			<input name="removeImage" type="checkbox" value="true"/>
+			<input name="removeImage"  type="checkbox" value="true"/>
 		</div>
 		
-		<input type="submit" th:value="Update"/>
+		<button type="submit" class="btn btn-default">Update</button>
+		<div>
 		<a href="/" th:href="@{|/user/${user.id}|}">Back</a>
+		</div>
 	</form>
 	</div>
 	<div th:unless="${isAdmin} == true">

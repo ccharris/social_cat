@@ -42,11 +42,75 @@ public class MainController {
 
 	@GetMapping("")
 	public String index(Model model) {
+		model.addAttribute("users", userRepo.findAll());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		boolean isAdmin = false;
+		boolean isUser = false;
+		for (UserRole ur : v.getUserRoles()){
+			if (ur.getRole().equals("USER")){
+				isUser = true;
+			} else if (ur.getRole().equals("ADMIN")){
+				isAdmin = true;
+			}
+		}
+		model.addAttribute("isUser", isUser);
+		model.addAttribute("isAdmin", isAdmin);
 		return "index";
+	}
+	
+	@GetMapping("/home")
+	public String home(Model model) {
+		model.addAttribute("users", userRepo.findAll());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		boolean isAdmin = false;
+		boolean isUser = false;
+		for (UserRole ur : v.getUserRoles()){
+			if (ur.getRole().equals("USER")){
+				isUser = true;
+			} else if (ur.getRole().equals("ADMIN")){
+				isAdmin = true;
+			}
+		}
+		model.addAttribute("isUser", isUser);
+		model.addAttribute("isAdmin", isAdmin);
+		if (isAdmin){
+			model.addAttribute("users", userRepo.findAll());
+			return "users";
+		} else {
+			model.addAttribute("user", v);
+			model.addAttribute("users", userRepo.findAll());
+			return "contacts";
+		}
+	}
+	
+	@GetMapping("/signup")
+	public String signup(Model model) {
+		model.addAttribute(new User());
+		return "signup";
+	}
+
+	@PostMapping("signup")
+	public String signupSave(@ModelAttribute @Valid User user,
+			BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			return "signup";
+		} else {
+			userRepo.save(user);
+			UserRole ur = new UserRole(user);
+			userRoleRepo.save(ur);
+			return "redirect:/";
+		}
+
 	}
 
 	@GetMapping("/users")
-	public String home(Model model) {
+	public String users(Model model) {
 		model.addAttribute("users", userRepo.findAll());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -68,7 +132,7 @@ public class MainController {
 
 	@PostMapping("/login")
 	public String loginSubmit() {
-		return "home";
+		return "index";
 	}
 
 	@GetMapping("/user/{id}")
