@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/basic">
+<head>
+   <title>Social Cat Login</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<h1>Social Cat Login:</h1>
+ 	<form th:action="@{/login}" method="post">
+        <div class="form-group">
+            <label> User : </label>
+            <input class="form-control" type="text" name="username" />
+        </div>
+        <div class="form-group">
+            <label> Password: </label>
+            <input class="form-control" type="password" name="password" />
+        </div>
+        <div>
+            <input type="submit" value="Sign In" />
+        </div>
+    </form>
+</body>
+</html>

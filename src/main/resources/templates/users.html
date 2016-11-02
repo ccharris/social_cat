@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/basic">
+<head>
+<title>Social Cat Users List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<h1>Social Cat User List:</h1>
+	<a  th:if="${isAdmin} == true" class="btn btn-success" href="/" th:href="@{|/user/create|}" role="button">Create New User</a>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th>Phone Number</th>
+				<th>Active</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="u : ${users}">
+				<td th:text="${u.id}"></td>
+				<td th:text="${u.firstName}"></td>
+				<td th:text="${u.lastName}"></td>
+				<td th:text="${u.email}"></td>
+				<td th:text="${u.phoneNumber}"></td>
+				<td th:text="${u.active}"></td>
+				<td><a class="btn btn-default" href="/" th:href="@{|/user/${u.id}}" role="button">View</a> </td>
+				<td><a th:if="${isAdmin} == true" class="btn btn-primary" href="/" th:href="@{|/user/${u.id}/edit|}" role="button">Edit</a></td>
+				<td><a th:if="${isAdmin} == true" class="btn btn-success" href="/" th:href="@{|/user/${u.id}/delete|}" role="button">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

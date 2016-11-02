@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/basic">
+<head>
+   <title>Social Cat User Edit</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<h1>Edit User</h1>
+	<div th:if="${isAdmin} == true" class="row col-md-6">
+		<form th:action="@{|/user/${user.id}/edit|}" enctype="multipart/form-data" method="POST">
+		<input name="id" type="hidden" th:value="${user.id}"/>
+			
+		<div class="field">
+			<label for="firstName">First Name</label>
+			<input name="firstName" type="text" th:value="${user.firstName}"/>
+		</div>
+		
+		<div class="field">
+			<label for="lastName">Last Name</label>
+			<input name="lastName" type="text" th:value="${user.lastName}"/>
+		</div>
+		
+		<div class="field">
+			<label for="email">Email</label>
+			<input name="email" type="text" th:value="${user.email}"/>
+		</div>
+		
+		<div class="field">
+			<label for="password">Password</label>
+			<input name="password" type="password" th:value="${user.password}"/>
+		</div>
+		
+		<div class="field">
+			<label for="phoneNumber">Phone Number</label>
+			<input name="phoneNumber" type="text" th:value="${user.phoneNumber}"/>
+		</div>
+		
+		<div class="field">
+		  <label for="twitterHandle">Twitter Handle</label>
+		  <input name="twitterHandle" type="text" th:value="${user.twitterHandle}"/>
+		</div>
+		
+        <div class="field">
+          <label for="facebookUrl">Facebook URL</label>
+          <input name="facebookUrl" type="text" th:value="${user.facebookUrl}"/>
+        </div>
+        
+		<div class="field">
+			<label for="file">Image</label>
+			<input name="file" type="file"/>
+		</div>
+		
+		<div class="field">
+			<label for="removeImage">Remove Image?</label>
+			<input name="removeImage" type="checkbox" value="true"/>
+		</div>
+		
+		<input type="submit" th:value="Update"/>
+		<a href="/" th:href="@{|/user/${user.id}|}">Back</a>
+	</form>
+	</div>
+	<div th:unless="${isAdmin} == true">
+	<h3>Invalid Permission.</h3>
+	</div>
+ 	
+</body>
+</html>
