@@ -1,13 +1,24 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/basic">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layouts/basic">
 <head>
-   <title>Social Cat</title>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Social Cat</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
 </head>
 <body layout:fragment="content">
- 	<h1>Welcome to Social Cat</h1>
- 	<h4>
- 	<a class="btn btn-primary" th:if="${isAdmin} == true" href="/users" role="button">Go to User Home</a></h4>
- 	<h4><a class="btn btn-primary" th:if="${isUser} == true" href="/contacts" role="button">Go to Contact Home</a></h4>
+	
+	<div class="lg-col-12 text-center">
+	<h1>Welcome to Social Cat</h1>
+	<h4>
+		<a class="btn btn-primary" th:if="${isAdmin} == true" href="/users"
+			role="button">Go to User Home</a>
+	</h4>
+	<h4>
+		<a class="btn btn-primary" th:if="${isUser} == true" href="/contacts"
+			role="button">Go to Contact Home</a>
+	</h4>
+	</div>
 </body>
 </html>

@@ -12,9 +12,9 @@
 		<form method="POST" th:object="${email}">
 		<input th:if="${isAddress} == true"
 					type="hidden" name="address" th:value="${emailAdd}" />
-			<div th:if="${isAddress} == false" class="form-group">
-				<label th:if="${isAddress} == false" for="address">Recipient's
-					Email Address</label> <input th:if="${emailAdd} == false" type="email"
+			<div th:unless="${isAddress} == true" class="form-group">
+				<label th:unless="${isAddress} == true" for="address">Recipient's
+					Email Address</label> <input th:unless="${isAddress} == true" type="email"
 					name="address" class="form-control" placeholder="email@email.com"
 					th:field="*{address}" /> 
 					<span

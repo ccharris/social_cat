@@ -112,8 +112,7 @@ public class MainController {
 	}
 
 	@GetMapping("/users")
-	public String users(Model model) {
-		model.addAttribute("users", userRepo.findAll());
+	public String users(Model model, @RequestParam(name = "srch", required = false) String searchTerm) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User v = userRepo.findOneByEmail(name);
@@ -123,6 +122,14 @@ public class MainController {
 				isAdmin = true;
 		}
 		model.addAttribute("isAdmin", isAdmin);
+		
+		if (searchTerm == null || "".equals(searchTerm)){
+		
+		model.addAttribute("users", userRepo.findAll());
+		} else {
+			model.addAttribute("users", userRepo.findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(searchTerm, searchTerm, searchTerm, searchTerm));
+		}
+		
 		return "users";
 	}
 
@@ -385,7 +392,7 @@ public class MainController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User v = userRepo.findOneByEmail(name);
-		email.setMessage((email.getMessage() + " Sign up for Social Cat! http://socialcat.com"));
+		email.setMessage((email.getMessage() + " \nSign up for Social Cat! \nhttp://socialcat.com"));
 		EmailService es = new EmailService();
 		es.sendEmail(email, v);
 		boolean isAdmin = false;
@@ -400,6 +407,21 @@ public class MainController {
 		model.addAttribute("isUser", isUser);
 		model.addAttribute("isAdmin", isAdmin);
 		return "email_success";
+	}
+	@GetMapping("/user/search")
+	public String userSearch(Model model) {
+		model.addAttribute("users", userRepo.findAll());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		User v = userRepo.findOneByEmail(name);
+		boolean isUser = false;
+		for (UserRole ur : v.getUserRoles()){
+			if (ur.getRole().equals("USER"))
+				isUser = true;
+		}
+		model.addAttribute("isUser", isUser);
+		model.addAttribute("user", v);
+		return "users";
 	}
 
 }
