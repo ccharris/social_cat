@@ -66,7 +66,7 @@ public class ContactController {
 			model.addAttribute("contacts", contactRepo.findByUserId(v.getId()));
 		} else {
 			List<Contact> userContacts = contactRepo.findByUserId(v.getId());
-			List<Contact> searchContacts = contactRepo.findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(searchTerm, searchTerm, searchTerm, searchTerm);
+			List<Contact> searchContacts = contactRepo.findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsOrNoteContainsAllIgnoreCase(searchTerm, searchTerm, searchTerm, searchTerm, searchTerm);
 			List<Contact> contacts = new ArrayList<Contact>();
 			for (Contact contact : searchContacts) {
 				if (userContacts.contains(contact)) {

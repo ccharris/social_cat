@@ -47,10 +47,31 @@ public class User {
 	
 	private boolean active;
 	
+	@Size(max = 200, min = 5)
+	private String secretQuestion;
+	@Size(max = 45, min = 1)
+	private String secretAnswer;
+	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Contact> contacts;
 	
 	
+	public String getSecretQuestion() {
+		return secretQuestion;
+	}
+
+	public void setSecretQuestion(String secretQuestion) {
+		this.secretQuestion = secretQuestion;
+	}
+
+	public String getSecretAnswer() {
+		return secretAnswer;
+	}
+
+	public void setSecretAnswer(String secretAnswer) {
+		this.secretAnswer = secretAnswer;
+	}
+
 	public Set<Contact> getContacts() {
 		return contacts;
 	}

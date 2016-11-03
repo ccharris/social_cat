@@ -40,6 +40,9 @@ public class Contact {
 	@Size(max = 128)
 	private String email;
 	
+	@Size(max = 200)
+	private String note;
+	
 	@Size(max = 10, min = 10)
 	private String phoneNumber;
 	
@@ -51,6 +54,14 @@ public class Contact {
 
 	
 
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
 
 	public User getUser() {
 		return user;

@@ -423,5 +423,42 @@ public class MainController {
 		model.addAttribute("user", v);
 		return "users";
 	}
+	
+	
+	@GetMapping("/pw")
+	public String pwRecover(Model model) {
+		model.addAttribute("users", userRepo.findAll());
+		return "pw_recovery";
+	}
 
+	@PostMapping("/pw")
+	public String pwRecoverSave(Model model, @RequestParam(name = "email", required = true) String email){
+		User u = userRepo.findOneByEmail(email);
+		model.addAttribute("user", u);
+		long id = u.getId();
+		model.addAttribute("id", id);
+		return"redirect:/pw/" + id;
+	}
+	@GetMapping("/pw/{id}")
+	public String pwRecoverGet(@PathVariable(name = "id") long id, Model model){
+		model.addAttribute("user", userRepo.findOne(id));
+		model.addAttribute("id", id);
+		return"pw_recovery_two";
+	}
+
+	@PostMapping("/pw/{id}")
+	public String pwRecoverShow(@PathVariable(name = "id") long id,  @RequestParam(name = "secretAnswer", required = false) String secretAnswer, Model model){
+		User u = userRepo.findOne(id);
+		if(secretAnswer.equalsIgnoreCase(u.getSecretAnswer())){
+			model.addAttribute(u.getPassword());
+			model.addAttribute("user", u);
+		} else {
+			model.addAttribute("user", u);
+			return "pw_recovery_two";
+		}
+		
+		return"pw_recover_three";
+	}
+	
+	
 }

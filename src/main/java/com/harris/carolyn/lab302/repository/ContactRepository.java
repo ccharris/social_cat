@@ -10,7 +10,7 @@ import com.harris.carolyn.lab302.beans.Contact;
 @Repository
 public interface ContactRepository extends CrudRepository<Contact, Long> {
 
-	public List<Contact> findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(String firstNamePart, String lastNamePart, String emailPart, String phoneNumberPart);
+	public List<Contact> findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsOrNoteContainsAllIgnoreCase(String firstNamePart, String lastNamePart, String emailPart, String phoneNumberPart, String notePart);
 
 	public List<Contact> findByUserId(long userId);
 	

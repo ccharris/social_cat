@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/basic">
+<head>
+   <title>Social Cat Password Recovery</title>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body layout:fragment="content">
+	<h1>Recover Your Social Cat Password</h1>
+ 	<form th:action="@{|/pw|}" method="POST">
+        <div class="form-group">
+            <label> What is Your User Name? </label>
+            <input class="form-control" type="text" name="email" />
+        </div>
+            <input type="submit" class="btn btn-default" value="Submit" />
+        <div>
+    </div>
+    </form>
+</body>
+</html>
