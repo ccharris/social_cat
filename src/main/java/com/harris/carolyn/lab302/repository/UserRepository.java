@@ -12,5 +12,5 @@ import com.harris.carolyn.lab302.beans.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findOneByEmail(String email);
-	public List<User> findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(String firstNamePart, String lastNamePart, String emailPart, String phoneNumberPart);
+	public List<User> findByFullNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(String fullNamePart, String emailPart, String phoneNumberPart);
 }

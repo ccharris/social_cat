@@ -22,11 +22,9 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@Size(max = 45, min = 2)
-	private String firstName;
+	@Size(max = 90, min = 2)
+	private String fullName;
 	
-	@Size(max = 45, min = 2)
-	private String lastName;
 	
 	@Size(max = 45)
 	private String twitterHandle;
@@ -107,18 +105,15 @@ public class User {
         this.userRoles = userRoles;
     }
 	
-	public String getFirstName() {
-		return firstName;
+
+	public String getFullName() {
+		return fullName;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+
 	public String getEmail() {
 		return email;
 	}

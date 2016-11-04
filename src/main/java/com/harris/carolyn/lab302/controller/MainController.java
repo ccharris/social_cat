@@ -2,6 +2,7 @@ package com.harris.carolyn.lab302.controller;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -9,6 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.social.connect.ConnectionRepository;
+import org.springframework.social.twitter.api.Twitter;
+import org.springframework.social.twitter.api.TwitterProfile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -127,22 +131,27 @@ public class MainController {
 		
 		model.addAttribute("users", userRepo.findAll());
 		} else {
-			model.addAttribute("users", userRepo.findByLastNameContainsOrFirstNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase(searchTerm, searchTerm, searchTerm, searchTerm));
+			model.addAttribute("users", userRepo.findByFullNameContainsOrEmailContainsOrPhoneNumberContainsAllIgnoreCase( searchTerm, searchTerm, searchTerm));
 		}
 		
 		return "users";
 	}
 
+	
 	@GetMapping("/login")
 	public String login(Model model) {
 
 		return "login";
+		
 	}
 
 	@PostMapping("/login")
-	public String loginSubmit() {
+	public String loginSubmit(Model model) {
+		
 		return "index";
 	}
+	
+
 
 	@GetMapping("/user/{id}")
 	public String user(Model model, @PathVariable(name = "id") long id) {
@@ -459,6 +468,6 @@ public class MainController {
 		
 		return"pw_recover_three";
 	}
-	
+
 	
 }

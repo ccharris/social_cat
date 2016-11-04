@@ -3,8 +3,7 @@ USE lab302 ;
 
 CREATE TABLE IF NOT EXISTS lab302.users (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  first_name VARCHAR(45) NOT NULL,
-  last_name VARCHAR(45) NOT NULL,
+  full_name VARCHAR(90) NOT NULL,
   password VARCHAR(45) NOT NULL,
   email VARCHAR(128) NULL,
   phone_number VARCHAR(10) NULL,

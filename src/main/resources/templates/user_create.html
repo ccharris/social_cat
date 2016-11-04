@@ -12,18 +12,11 @@
 		<form method="POST" th:object="${user}">
 			<input type="hidden" name="id" th:value="*{id}" />
 			<div class="form-group">
-				<label for="firstName">First Name</label> <input type="text"
-					name="firstName" class="form-control" placeholder="First Name"
-					th:field="*{firstName}" /> <span
-					th:if="${#fields.hasErrors('firstName')}"
-					th:errors="*{firstName}">First Name Error</span>
-			</div>
-			<div class="form-group">
-				<label for="lastName">Last Name</label> <input type="text"
-					name="lastName" class="form-control" placeholder="Last Name"
-					th:field="*{lastName}" /> <span
-					th:if="${#fields.hasErrors('lastName')}"
-					th:errors="*{lastName}">Last Name Error</span>
+				<label for="fullName">Full Name</label> <input type="text"
+					name="fullName" class="form-control" placeholder="Full Name"
+					th:field="*{fullName}" /> <span
+					th:if="${#fields.hasErrors('fullName')}"
+					th:errors="*{fullName}">Full Name Error</span>
 			</div>
 			<div class="form-group">
 				<label for="email">Email Address</label> <input type="text" name="email"

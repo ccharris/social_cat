@@ -37,10 +37,8 @@ dependencies {
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity4:2.1.2.RELEASE")
     compile("com.h2database:h2")
     testCompile("junit:junit")
-// https://mvnrepository.com/artifact/javax.mail/mail
-compile group: 'javax.mail', name: 'mail', version: '1.4.7'
-
-    
+	compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+	compile("org.springframework.social:spring-social-twitter")
 }
 
 task wrapper(type: Wrapper) {
