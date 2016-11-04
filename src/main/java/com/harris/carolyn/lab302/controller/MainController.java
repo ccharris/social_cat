@@ -48,10 +48,14 @@ public class MainController {
 
 	@GetMapping("")
 	public String index(Model model) {
+
 		model.addAttribute("users", userRepo.findAll());
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
 		User v = userRepo.findOneByEmail(name);
+		if (v == null){
+			return "redirect:/login";
+		} else {
 		boolean isAdmin = false;
 		boolean isUser = false;
 		for (UserRole ur : v.getUserRoles()){
@@ -64,6 +68,7 @@ public class MainController {
 		model.addAttribute("isUser", isUser);
 		model.addAttribute("isAdmin", isAdmin);
 		return "index";
+		}
 	}
 	
 	@GetMapping("/home")
